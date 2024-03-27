@@ -25,9 +25,6 @@ const handleLogin = handleSubmit((values) => {
 </script>
 
 <template>
-  <p>
-    Hello Form {{ validationSchema }}
-  </p>
   <form class="max-w-sm mx-auto grid gap-4" @submit.prevent="handleLogin">
     <DInput
       v-model="email"
