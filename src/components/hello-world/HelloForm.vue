@@ -3,12 +3,13 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as zod from 'zod'
 import DInput from '../ui/DInput.vue'
+import { ERRORS } from '../../messages/errors'
 
 const emit = defineEmits(['login'])
 
 const validationSchema = toTypedSchema(
   zod.object({
-    email: zod.string({ required_error: 'This is required' }).min(1).email('This is not an email'),
+    email: zod.string().min(1, ERRORS.required).email(ERRORS.invalidEmail),
   }),
 )
 
@@ -35,10 +36,6 @@ const handleLogin = handleSubmit((values) => {
       :error-message="errors.email"
       description="Gib deinen Username ein"
     />
-    <p id="debug-input-error" class="my-2 text-xs text-red-600 truncate block">
-      <template v-if="errors.email" />
-      {{ errors.email }}
-    </p>
 
     <button
       data-testid="submit-button"
